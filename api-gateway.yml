@@ -14,7 +14,7 @@ spring:
                 - Path=/v1/products/**
 
             # Customer Service
-            - id: customer-service
+            - id: customer
               uri: http://localhost:9001
               predicates:
                 - Path=/v1/customers/**
