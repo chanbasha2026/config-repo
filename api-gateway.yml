@@ -13,9 +13,9 @@ spring:
               predicates:
                 - Path=/v1/products/**
               filters:
-                - name: CircuteBreaker
+                - name: CircuitBreaker
                   args:
-                    name: productCircuteBreaker
+                    name: productCircuitBreaker
                     fallbackUri: forward:/fallback/products
                     statusCodes:
                       - 500
@@ -29,9 +29,9 @@ spring:
               predicates:
                 - Path=/v1/customer/**
               filters:
-                - name: CircuteBreaker
+                - name: CircuitBreaker
                   args:
-                    name: customerCircuteBreaker
+                    name: customerCircuitBreaker
                     fallbackUri: forward:/fallback/customer
                     statusCodes:
                       - 500
