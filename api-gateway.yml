@@ -23,9 +23,10 @@ spring:
 management:
   endpoint:
     gateway:
-      access: unrestricted
+      access: read-only
   endpoints:
     web:
       exposure:
         include: health,info,gateway
+
 
