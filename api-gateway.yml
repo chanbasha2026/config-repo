@@ -19,8 +19,13 @@ spring:
               predicates:
                 - Path=/v1/customers/**
 
+
 management:
+  endpoint:
+    gateway:
+      access: unrestricted
   endpoints:
     web:
       exposure:
         include: health,info,gateway
+
