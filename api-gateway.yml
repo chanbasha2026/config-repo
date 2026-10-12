@@ -12,9 +12,52 @@ spring:
               uri: http://localhost:9000
               predicates:
                 - Path=/v1/products/**
+              filters:
+                - name: CircuteBreaker
+                  args:
+                    name: productCircuteBreaker
+                    fallbackUri: forward:/fallback/products
+                    statusCodes:
+                      - 500
+                      - 502
+                      - 503
+                      - 504
 
             # Customer Service
             - id: customer
               uri: http://localhost:9001
               predicates:
                 - Path=/v1/customer/**
+              filters:
+                - name: CircuteBreaker
+                  args:
+                    name: customerCircuteBreaker
+                    fallbackUri: forward:/fallback/customer
+                    statusCodes:
+                      - 500
+                      - 502
+                      - 503
+                      - 504
+resillence4j:
+  circuitbreaker:
+    instances:
+      productCircuitBreaker:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+      customerCircuitBreaker:
+        slidingWindowType: COUNT_BASED
+        slidingWindowSize: 5
+        minimumNumberOfCalls: 3
+        failureRateThreshold: 50
+        waitDurationInOpenState: 10s
+        permittedNumberOfCallsInHalfOpenState: 2
+        automaticTransitionFromOpenToHalfOpenEnabled: true
+
+
+
